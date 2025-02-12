@@ -37,7 +37,7 @@ jobs:
       - name: copy build
         uses: appleboy/scp-action@master
         with:
-          host: ${{ secrets.HOST }}
+          host: ${{ secrets.SSH_HOSTNAME }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           port: ${{ secrets.SSH_PORT }}
@@ -54,5 +54,4 @@ jobs:
           set -e
           cd '${{ secrets.WORKING_DIRECTORY }}'
           tar -xzvf build.tar
-          cd /root
           # depending on the instance input we want to do different stuff here
