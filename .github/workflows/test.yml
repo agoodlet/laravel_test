@@ -26,4 +26,33 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - run: echo "${{ github.event.inputs.instance }}"
+      - uses: actions/checkout@v2
+
+      - name: build mercury
+        run: |
+          mkdir ../build
+          cp -TR . ../build
+          tar -cvf build.tar ../build/
+
+      - name: copy build
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: "build.tar"
+          target: "${{ secrets.WORKING_DIRECTORY }}"
+
+      - name: ssh and unpack
+        uses: appleboy/ssh-action@v1.2.0
+        host: ${{ secrets.SSH_HOSTNAME }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        port: ${{ secrets.SSH_PORT }}
+        script: |
+          set -e
+          cd '${{ secrets.WORKING_DIRECTORY }}'
+          tar -xzvf build.tar
+          cd /root
+          # depending on the instance input we want to do different stuff here
