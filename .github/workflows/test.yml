@@ -30,6 +30,7 @@ jobs:
 
       - name: build mercury
         run: |
+          rm -rf ../build
           mkdir ../build
           cp -TR . ../build
           tar -cvf build.tar ../build/
