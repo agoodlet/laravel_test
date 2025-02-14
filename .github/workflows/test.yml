@@ -35,13 +35,6 @@ jobs:
           cp -TR . ../build
           tar -cvf build.tar ../build/
 
-      - name: Set up SCP
-        run: |
-          mkdir -v -p -m 700 $HOME/.ssh
-          ssh-keyscan -H ${{ secrets.SSH_HOST }} > $HOME/.ssh/known_hosts
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > $HOME/.ssh/id_rsa
-          chmod 400 $HOME/.ssh/id_rsa
-
       - name: Copy to server
         run: scp build.tar ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:${{ secrets.WORKING_DIRECTORY }}
 
