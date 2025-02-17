@@ -36,7 +36,7 @@ jobs:
           tar -cvf build.tar ../build/
 
       - name: Copy to server
-        run: scp -P 3003 build.tar ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:build.tar
+        run: scp -P 3003 build.tar ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:~/test/
 
       - name: ssh and unpack
         uses: appleboy/ssh-action@v1.2.0
