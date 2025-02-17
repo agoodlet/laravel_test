@@ -47,6 +47,6 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             set -e
-            cd '${{ secrets.WORKING_DIRECTORY }}'
+            cd /home/agoodlet/test/
             tar xvf build.tar
             # depending on the instance input we want to do different stuff here
