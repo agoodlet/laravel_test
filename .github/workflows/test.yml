@@ -48,5 +48,29 @@ jobs:
           script: |
             set -e
             cd /home/agoodlet/test/
+            # if we already have an unpacked build we want to get rid of it
+            # perhaps we should be mv ./build ./build_old instead
+            if [ -d ./build ]; then rm -rf /home/agoodlet/test/build; fi
+            # unpack build
             tar xvf build.tar
             # depending on the instance input we want to do different stuff here
+            command="/root/create_or_update_mca_instance.php -m update"
+            instance=${{ github.event.inputs.instance }}
+            case "$instance" in
+              # if instance = all we dont' need to filter
+              "All")
+                ;;
+              # if instance = production -u prod,users
+              "Production")
+                command="$command -u prod,users";;
+              # if instance = beta -e prod,users
+              "Beta")
+                command="$command -e prod,users";;
+              # if instance = seychelles -u seychelles
+              "Seychelles")
+                command="$command -u scmercurybilling";;
+              # if instance = test -u dveale,demomercury,agoodlet
+              "Test")
+                command="$command -u dveale,demomercury,agoodlet";;
+            esac
+            echo $command
