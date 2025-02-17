@@ -48,5 +48,5 @@ jobs:
           script: |
             set -e
             cd '${{ secrets.WORKING_DIRECTORY }}'
-            tar -xzvf build.tar
+            tar xvf build.tar
             # depending on the instance input we want to do different stuff here
