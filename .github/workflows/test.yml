@@ -47,11 +47,11 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             set -e
-            cd /home/agoodlet/test/
+            cd '${{ secrets.WORKING_DIRECTORY}}'
             # if we already have an unpacked build we want to get rid of it
             # perhaps we should be mv ./build ./build_old instead
-            if [ -d ./build.tar ]; then rm -rf /home/agoodlet/test/build.tar; fi
-            if [ -d ./build ]; then rm -rf /home/agoodlet/test/build; fi
+            if [ -d ./build.tar ]; then rm -rf '${{ secrets.WORKING_DIRECTORY }}/build.tar'; fi
+            if [ -d ./build ]; then rm -rf '${{ secrets.WORKING_DIRECTORY }}/build'; fi
             # unpack build
             tar xvf build.tar
             # depending on the instance input we want to do different stuff here
@@ -74,4 +74,6 @@ jobs:
               "Test")
                 command="$command -u dveale,demomercury,agoodlet";;
             esac
+
+            # instead of just echoing this out we would want to execute it
             echo $command
