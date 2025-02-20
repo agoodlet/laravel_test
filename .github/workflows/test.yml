@@ -61,10 +61,10 @@ jobs:
               # if instance = all we dont' need to filter
               "All")
                 ;;
-              # if instance = production -u prod,users
+              # if instance = production -u prod_users
               "Production")
                 command="$command -u ${{ vars.PROD_USERS }}";;
-              # if instance = beta -e prod,users
+              # if instance = beta -e prod_users
               "Beta")
                 command="$command -e ${{ vars.PROD_USERS }}";;
               # if instance = seychelles -u seychelles
