@@ -72,7 +72,7 @@ jobs:
                 command="$command -u scmercurybilling";;
               # if instance = test -u dveale,demomercury,agoodlet
               "Test")
-                command="$command -u dveale,demomercury,agoodlet";;
+                command="$command -u ${{ vars.TEST_USERS }}";;
             esac
 
             # instead of just echoing this out we would want to execute it
