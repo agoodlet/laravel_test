@@ -57,7 +57,6 @@ jobs:
             # depending on the instance input we want to do different stuff here
             command="/root/create_or_update_mca_instance.php -m update"
             instance="${{ github.event.inputs.instance }}"
-            # surely there's something we can do to make this easier to maintain
             case "$instance" in
               # if instance = all we dont' need to filter
               "All")
