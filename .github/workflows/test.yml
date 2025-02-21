@@ -41,17 +41,17 @@ jobs:
       - name: ssh and unpack
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.SSH_HOSTNAME }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
+          host: ${{ secrets.MCA_SSH_HOSTNAME }}
+          username: ${{ secrets.MCA_SSH_USERNAME }}
+          key: ${{ secrets.MCA_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.MCA_SSH_PORT }}
           script: |
             set -e
-            cd '${{ secrets.WORKING_DIRECTORY}}'
+            cd '${{ secrets.MCA_WORKING_DIRECTORY}}'
             # if we already have an unpacked build we want to get rid of it
             # perhaps we should be mv ./build ./build_old instead
-            if [ -d ./build.tar ]; then rm -rf '${{ secrets.WORKING_DIRECTORY }}/build.tar'; fi
-            if [ -d ./build ]; then rm -rf '${{ secrets.WORKING_DIRECTORY }}/build'; fi
+            if [ -d ./build.tar ]; then rm -rf '${{ secrets.MCA_WORKING_DIRECTORY }}/build.tar'; fi
+            if [ -d ./build ]; then rm -rf '${{ secrets.MCA_WORKING_DIRECTORY }}/build'; fi
             # unpack build
             tar xvf build.tar
             # depending on the instance input we want to do different stuff here
@@ -63,17 +63,17 @@ jobs:
                 ;;
               # if instance = production -u prod_users
               "Production")
-                command="$command -u ${{ vars.PROD_USERS }}";;
+                command="$command -u ${{ vars.MCA_PROD_USERS }}";;
               # if instance = beta -e prod_users
               "Beta")
-                command="$command -e ${{ vars.PROD_USERS }}";;
+                command="$command -e ${{ vars.MCA_PROD_USERS }}";;
               # if instance = seychelles -u seychelles
               "Seychelles")
                 command="$command -u scmercurybilling";;
               # if instance = test -u dveale,demomercury,agoodlet
               "Test")
-                command="$command -u ${{ vars.TEST_USERS }}";;
+                command="$command -u ${{ vars.MCA_TEST_USERS }}";;
             esac
 
-            # instead of just echoing this out we would want to execute it
+            # eval "$command"
             echo $command

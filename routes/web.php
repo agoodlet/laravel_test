@@ -18,8 +18,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::delete('/', function() {
-  return view('welcome');
+Route::delete('/', function () {
+    return view('welcome');
+});
+
+Route::get('/asdf', function () {
+    return view('welcome');
 });
 
 
