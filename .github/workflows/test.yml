@@ -36,7 +36,7 @@ jobs:
           tar -cvf build.tar ../build/
 
       - name: Copy to server
-        run: scp -P 3003 build.tar ${{ secrets.MCA_SSH_USERNAME }}@${{ secrets.MCA_SSH_HOSTNAME }}:~/test/
+        run: scp -P 3003 build.tar ${{ secrets.MCA_SSH_USERNAME }}@${{ secrets.MCA_SSH_HOSTNAME }}:~
 
       - name: ssh and unpack
         uses: appleboy/ssh-action@v1.2.0
@@ -46,6 +46,7 @@ jobs:
           key: ${{ secrets.MCA_SSH_PRIVATE_KEY }}
           port: ${{ secrets.MCA_SSH_PORT }}
           script: |
+            echo "${{ secrets.MCA_WORKING_DIRECTORY }}"
             set -e
             cd '${{ secrets.MCA_WORKING_DIRECTORY}}'
             # if we already have an unpacked build we want to get rid of it
@@ -74,5 +75,5 @@ jobs:
                 command="$command -u ${{ vars.MCA_TEST_USERS }}";;
             esac
 
-            # eval "$command"
-            echo $command
+            # execute the command
+            eval "$command"
