@@ -36,7 +36,7 @@ jobs:
           tar -cvf build.tar ../build/
 
       - name: Copy to server
-        run: scp -P 3003 build.tar ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:~/test/
+        run: scp -P 3003 build.tar ${{ secrets.MCA_SSH_USERNAME }}@${{ secrets.SSH_HOSTNAME }}:~/test/
 
       - name: ssh and unpack
         uses: appleboy/ssh-action@v1.2.0
@@ -50,7 +50,6 @@ jobs:
             cd '${{ secrets.MCA_WORKING_DIRECTORY}}'
             # if we already have an unpacked build we want to get rid of it
             # perhaps we should be mv ./build ./build_old instead
-            if [ -d ./build.tar ]; then rm -rf '${{ secrets.MCA_WORKING_DIRECTORY }}/build.tar'; fi
             if [ -d ./build ]; then rm -rf '${{ secrets.MCA_WORKING_DIRECTORY }}/build'; fi
             # unpack build
             tar xvf build.tar
