@@ -75,5 +75,4 @@ jobs:
             esac
 
             # execute the command
-            # eval "$command"
-            echo "$command"
+            eval "$command"
