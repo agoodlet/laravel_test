@@ -56,22 +56,25 @@ jobs:
             # depending on the instance input we want to do different stuff here
             command="/root/create_or_update_mca_instance.php -m update"
             instance="${{ github.event.inputs.instance }}"
+            production_users="$(getent group production | awk -F ':' '{print $4}')"
+            test_users="$(getent group test | awk -F ':' '{print $4}')"
+
             case "$instance" in
               # if instance = all we dont' need to filter
               "All")
                 ;;
               # if instance = production -u prod_users
               "Production")
-                command="$command -u ${{ vars.MCA_PROD_USERS }}";;
+                command="$command -u $production_users";;
               # if instance = beta -e prod_users
               "Beta")
-                command="$command -e ${{ vars.MCA_PROD_USERS }}";;
+                command="$command -e $production_users";;
               # if instance = seychelles -u seychelles
               "Seychelles")
                 command="$command -u scmercurybilling";;
               # if instance = test -u dveale,demomercury,agoodlet
               "Test")
-                command="$command -u ${{ vars.MCA_TEST_USERS }}";;
+                command="$command -u $test_users";;
             esac
 
             # execute the command
