@@ -39,9 +39,9 @@ jobs:
           port: ${{ secrets.MCA_SSH_PORT }}
           script: |
             set -e
-            cd '${{ secrets.MCA_WORKING_DIRECTORY }}/Core/public'
+            cd '${{ secrets.MCA_WORKING_DIRECTORY }}/build/public'
             # unpack
-            if [ -d ./build ]; then rm -rf '${{ secrets.MCA_WORKING_DIRECTORY }}/Core/public/build/'; fi
+            if [ -d ./build ]; then rm -rf '${{ secrets.MCA_WORKING_DIRECTORY }}/build/public/build/'; fi
             tar xvf build.tar
             # take the content out of build and into the public folder
             # using -f flag to make sure we overwrite anything in the destination
