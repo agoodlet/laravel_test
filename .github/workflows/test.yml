@@ -31,12 +31,10 @@ jobs:
       - name: build mercury
         run: |
           rm -rf ../build
-          mkdir ../build
-          cp -TR . ../build
-          tar -cvf build.tar ../build/
+          tar -cvf build.tar ./*
 
       - name: Copy to server
-        run: scp -P 3003 build.tar ${{ secrets.MCA_SSH_USERNAME }}@${{ secrets.MCA_SSH_HOSTNAME }}:${{ secrets.MCA_WORKING_DIRECTORY }}
+        run: scp -P ${{ secrets.MCA_SSH_PORT }} build.tar ${{ secrets.MCA_SSH_USERNAME }}@${{ secrets.MCA_SSH_HOSTNAME }}:${{ secrets.MCA_WORKING_DIRECTORY }}
 
       - name: ssh and unpack
         uses: appleboy/ssh-action@v1.2.0
@@ -78,5 +76,4 @@ jobs:
             esac
 
             # execute the command
-            # eval "$command"
-            echo "$command"
+            eval "$command"
