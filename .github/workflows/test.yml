@@ -82,4 +82,5 @@ jobs:
             esac
 
             # execute the COMMAND
-            eval "${COMMAND}"
+            # eval "${COMMAND}"
+            echo "${COMMAND}"
