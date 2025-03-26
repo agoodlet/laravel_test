@@ -17,7 +17,7 @@ jobs:
   build:
     concurrency:
       group: mca-deployment
-    runs-on: [self-hosted, Linux, cd]
+    runs-on: [self-hosted, Linux, ARM64]
     # environment: "Production MCA"
 
     steps:
