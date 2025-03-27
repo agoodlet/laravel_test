@@ -33,7 +33,7 @@ jobs:
           key: ${{ secrets.MCA_SSH_PRIVATE_KEY }}
           port: ${{ secrets.MCA_SSH_PORT }}
           source: "./*"
-          target: "home/agoodlet/test/Core"
+          target: "${{ secrets.MCA_WORKING_DIRECTORY }}/Core"
           overwrite: true
           rm: false
 
@@ -47,13 +47,6 @@ jobs:
           script: |
             set -e
             cd '${{ secrets.MCA_WORKING_DIRECTORY}}'
-
-            # if we already have an unpacked build we want to get rid of it
-            # perhaps we should be mv ./Core ./Core_old instead
-            if [ -d ./Core ]; then rm -rf '${{ secrets.MCA_WORKING_DIRECTORY }}/Core'; fi
-
-            # unpack build
-            tar xvf Core.tar
 
             # depending on the INSTANCE input we want to do different stuff here
             COMMAND="/root/create_or_update_mca_INSTANCE.php -m update"
