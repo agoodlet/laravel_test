@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.MCA_SSH_USERNAME }}
           key: ${{ secrets.MCA_SSH_PRIVATE_KEY }}
           port: ${{ secrets.MCA_SSH_PORT }}
-          source: "./*"
+          source: "."
           target: "${{ secrets.MCA_WORKING_DIRECTORY }}/Core"
           overwrite: true
           rm: false
@@ -46,7 +46,6 @@ jobs:
           port: ${{ secrets.MCA_SSH_PORT }}
           script: |
             set -e
-            cd '${{ secrets.MCA_WORKING_DIRECTORY}}'
 
             # depending on the INSTANCE input we want to do different stuff here
             COMMAND="/root/create_or_update_mca_INSTANCE.php -m update"
