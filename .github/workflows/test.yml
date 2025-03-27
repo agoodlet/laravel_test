@@ -33,7 +33,7 @@ jobs:
           key: ${{ secrets.MCA_SSH_PRIVATE_KEY }}
           port: ${{ secrets.MCA_SSH_PORT }}
           source: "./*"
-          target: "${{ secrets.MCA_WORKING_DIRECTORY }}/Core"
+          target: "home/agoodlet/test/Core"
           overwrite: true
           rm: false
 
