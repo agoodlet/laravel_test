@@ -33,7 +33,9 @@ jobs:
           key: ${{ secrets.MCA_SSH_PRIVATE_KEY }}
           port: ${{ secrets.MCA_SSH_PORT }}
           source: "./*"
-          target: "${{ secrets.WORKING_DIRECTORY }}/Core"
+          target: "${{ secrets.MCA_WORKING_DIRECTORY }}/Core"
+          overwrite: true
+          rm: false
 
       - name: ssh and unpack
         uses: appleboy/ssh-action@v1.2.0
@@ -44,11 +46,11 @@ jobs:
           port: ${{ secrets.MCA_SSH_PORT }}
           script: |
             set -e
-            cd '${{ secrets.WORKING_DIRECTORY}}'
+            cd '${{ secrets.MCA_WORKING_DIRECTORY}}'
 
             # if we already have an unpacked build we want to get rid of it
             # perhaps we should be mv ./Core ./Core_old instead
-            if [ -d ./Core ]; then rm -rf '${{ secrets.WORKING_DIRECTORY }}/Core'; fi
+            if [ -d ./Core ]; then rm -rf '${{ secrets.MCA_WORKING_DIRECTORY }}/Core'; fi
 
             # unpack build
             tar xvf Core.tar
