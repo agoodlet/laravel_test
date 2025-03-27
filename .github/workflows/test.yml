@@ -28,20 +28,20 @@ jobs:
       - name: Copy to server
         uses: appleboy/scp-action@v0.1.7
         with:
-          host: ${{ secrets.SSH_HOSTNAME }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
+          host: ${{ secrets.MCA_SSH_HOSTNAME }}
+          username: ${{ secrets.MCA_SSH_USERNAME }}
+          key: ${{ secrets.MCA_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.MCA_SSH_PORT }}
           source: "./*"
           target: "${{ secrets.WORKING_DIRECTORY }}/Core"
 
       - name: ssh and unpack
         uses: appleboy/ssh-action@v1.2.0
         with:
-          host: ${{ secrets.SSH_HOSTNAME }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SSH_PORT }}
+          host: ${{ secrets.MCA_SSH_HOSTNAME }}
+          username: ${{ secrets.MCA_SSH_USERNAME }}
+          key: ${{ secrets.MCA_SSH_PRIVATE_KEY }}
+          port: ${{ secrets.MCA_SSH_PORT }}
           script: |
             set -e
             cd '${{ secrets.WORKING_DIRECTORY}}'
