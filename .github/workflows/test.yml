@@ -32,7 +32,7 @@ jobs:
           username: ${{ secrets.MCA_SSH_USERNAME }}
           key: ${{ secrets.MCA_SSH_PRIVATE_KEY }}
           port: ${{ secrets.MCA_SSH_PORT }}
-          source: "./"
+          source: "./*"
           target: "${{ secrets.MCA_WORKING_DIRECTORY }}/Core"
           overwrite: true
           rm: false
