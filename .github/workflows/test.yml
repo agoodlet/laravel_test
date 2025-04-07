@@ -3,9 +3,9 @@ name: MCA Deployment
 on:
   workflow_dispatch:
     inputs:
-      INSTANCE:
+      instance:
         type: choice
-        description: Which INSTANCEs would you like to deploy to
+        description: Which instances would you like to deploy to
         options:
           - Beta
           - Production
@@ -34,8 +34,6 @@ jobs:
           port: ${{ secrets.MCA_SSH_PORT }}
           source: "./*"
           target: "${{ secrets.MCA_WORKING_DIRECTORY }}/Core"
-          overwrite: true
-          rm: false
 
       - name: ssh and unpack
         uses: appleboy/ssh-action@v1.2.0
@@ -48,8 +46,8 @@ jobs:
             set -e
 
             # depending on the INSTANCE input we want to do different stuff here
-            COMMAND="/root/create_or_update_mca_INSTANCE.php -m update"
-            INSTANCE="${{ github.event.inputs.INSTANCE }}"
+            COMMAND="/root/create_or_update_mca_instance.php -m update"
+            INSTANCE="${{ github.event.inputs.instance }}"
 
             # get users from their groups
             PRODUCTION_USERS="$(getent group production | awk -F ':' '{print $4}')"
